@@ -1,0 +1,171 @@
+package com;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+public class OnlineJobPortalManagement {
+
+	private int companyRegistrationId;
+	private String jobPortalName;
+	ArrayList<Category>catList= new ArrayList<Category>();
+	
+	
+	OnlineJobPortalManagement() {
+	}
+	public int getCompanyRegistrationId() {
+		return companyRegistrationId;
+	}
+	public void setCompanyRegistrationId(int companyRegistrationId) {
+		this.companyRegistrationId = companyRegistrationId;
+	}
+	public String getJobPortalName() {
+		return jobPortalName;
+	}
+	public void setJobPortalName(String jobPortalName) {
+		this.jobPortalName = jobPortalName;
+	}
+	public ArrayList<Category> getCatList() {
+		return catList;
+	}
+	public void setCatList(ArrayList<Category> catList) {
+		this.catList = catList;
+	}
+	public OnlineJobPortalManagement(int companyRegistrationId,
+			String jobPortalName, ArrayList<Category> catList) {
+		super();
+		this.companyRegistrationId = companyRegistrationId;
+		this.jobPortalName = jobPortalName;
+		this.catList = catList;
+	}
+	
+	//1.tag job to category
+	
+	public boolean tagJobToCategory(int categoryId, Job j)throws JobAlreadyExistException{
+		
+		boolean check=true;
+		 if(catList!=null && !catList.isEmpty())
+		 {
+			 for(Category c:catList)
+			 {
+				 
+				 if(c.getCategoryId()==categoryId)
+				 {
+					 for(Job k:c.getJobList())
+					 {
+						 if(k.getJobId()==j.getJobId())
+						 {
+							 check=false;
+							 break;
+							 
+						 }
+					 }
+				 }
+				 c.getJobList().add(j);
+			 }
+			 
+		 }	 
+		if(!check)
+		{
+			throw new JobAlreadyExistException("JobAlreadyExistException");
+		}
+return check;
+		
+	 }
+	
+	
+	//2. updateJobVacancy
+   
+	
+	public boolean updateJobVacancy(int jobId, int newVacancy)throws JobDoesNotExistException{
+		
+		boolean check=false;
+		
+		if(catList!=null && !catList.isEmpty())
+		 {
+			 for(Category c:catList)
+			 {
+				 for(Job jb:c.getJobList())
+				 {
+					 if(jb.getJobId()==jobId)
+					 {
+						 check=true;
+						 jb.setVacancy(newVacancy);
+					 }
+				 }
+				 
+			 }
+			 
+		 }
+		
+		if(!check)
+		{
+			throw new JobDoesNotExistException("JobDoesNotExistException");
+		}
+		
+		return check;
+		
+	}
+	
+	//3.getContractJobsByLocation
+	
+	public ArrayList<ContractJob> getContractJobsByLocation(String location){
+		
+		ArrayList<ContractJob> CJ= new ArrayList<ContractJob>();
+		
+		if(catList!=null && !catList.isEmpty())
+		 {
+			 for(Category c:catList)
+			 {
+				 for(Job jb:c.getJobList())
+				 {
+					 if(jb.getLocation().equalsIgnoreCase(location) && jb instanceof ContractJob)
+					 {
+						 CJ.add((ContractJob)jb);
+					 }
+				 }
+			 }
+		 }
+		Collections.sort(CJ);
+		return CJ;
+	}
+		
+		
+		//4. getHighestSalaryJob
+	
+	
+	public HashMap<Integer,	Job> getHighestSalaryJob()
+			{ 
+					HashMap<Integer,Job> hm =new HashMap<Integer,Job>();
+					for(int i=0; i<catList.size();i++){
+						Job j1=catList.get(i).getJobList().get(0);
+						double temp=catList.get(i).getJobList().get(0).getSalary();
+						
+						for(int j=0;j<catList.get(i).getJobList().size();j++){
+							
+							if(temp<catList.get(i).getJobList().get(j).getSalary())
+							{
+								temp=catList.get(i).getJobList().get(j).getSalary();
+								j1=catList.get(i).getJobList().get(j);
+							}
+						}
+						hm.put(catList.get(i).getCategoryId(), j1);
+					}
+		return hm;
+			
+		
+			}
+	
+	
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
