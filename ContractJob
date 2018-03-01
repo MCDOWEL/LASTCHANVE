@@ -1,0 +1,30 @@
+package com;
+
+public class ContractJob extends Job {
+
+	private int contractPeroidInMonth;
+	
+	
+
+	public int getContractPeroidInMonth() {
+		return contractPeroidInMonth;
+	}
+
+
+
+	public void setContractPeroidInMonth(int contractPeroidInMonth) {
+		this.contractPeroidInMonth = contractPeroidInMonth;
+	}
+
+
+
+	public ContractJob(int jobId, String jobDescription, int vacancy,
+			double salary, String location) {
+		super(jobId, jobDescription, vacancy, salary, location);
+		// TODO Auto-generated constructor stub
+	}
+	 
+	
+	
+	
+}
