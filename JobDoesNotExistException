@@ -1,0 +1,11 @@
+package com;
+
+public class JobDoesNotExistException extends Exception {
+
+	public JobDoesNotExistException(String msg2) {
+		System.out.println(msg2);
+	}
+	
+	
+
+}
