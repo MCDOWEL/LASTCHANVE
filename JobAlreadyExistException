@@ -1,0 +1,11 @@
+package com;
+
+public class JobAlreadyExistException extends Exception {
+
+	public JobAlreadyExistException(String msg) {
+		System.out.println(msg);
+		
+	}
+	
+
+}
