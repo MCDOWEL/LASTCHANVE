@@ -1,0 +1,43 @@
+package com;
+import java.util.ArrayList;
+public class Category {
+
+	private int categoryId;
+	private String categoryName;
+	private String skillset;
+	ArrayList<Job>jobList= new ArrayList<Job>();
+	public int getCategoryId() {
+		return categoryId;
+	}
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
+	}
+	public String getCategoryName() {
+		return categoryName;
+	}
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	public String getSkillset() {
+		return skillset;
+	}
+	public void setSkillset(String skillset) {
+		this.skillset = skillset;
+	}
+	public ArrayList<Job> getJobList() {
+		return jobList;
+	}
+	public void setJobList(ArrayList<Job> jobList) {
+		this.jobList = jobList;
+	}
+	public Category(int categoryId, String categoryName, String skillset,
+			ArrayList<Job> jobList) {
+		super();
+		this.categoryId = categoryId;
+		this.categoryName = categoryName;
+		this.skillset = skillset;
+		this.jobList = jobList;
+	}
+	
+	
+}
