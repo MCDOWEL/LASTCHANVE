@@ -1,0 +1,81 @@
+package com;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class Tester {
+
+	
+	public static void main(String[] args) {
+		OnlineJobPortalManagement o1= new OnlineJobPortalManagement();
+		Job j1= new ContractJob(1,"trainee",5,25000,"Pune");
+		Job j2= new ContractJob(2,"Hr",6,50000,"kolapur");
+		Job j3= new ContractJob(3,"faculty",7,35000,"Pune");
+		Job j4= new ContractJob(4,"peon",8,5000,"tvm");
+		Job j5= new ContractJob(5,"staff",9,2000,"Pune");
+		Job j6= new ContractJob(6,"manager",10,65000,"mumbai");
+		ArrayList<Job> jobs1= new ArrayList<Job>();
+		jobs1.add(j1);
+		jobs1.add(j2);
+		
+		ArrayList<Job> jobs2= new ArrayList<Job>();
+		jobs2.add(j3);
+		jobs2.add(j4);
+		
+		ArrayList<Job> jobs3= new ArrayList<Job>();
+		jobs3.add(j5);
+		jobs3.add(j6);
+		
+		
+		Category c1= new Category(11,"IT","beans",jobs1);
+		Category c2= new Category(12,"NonIT","sql",jobs2);
+		Category c3= new Category(13,"medical","org",jobs3);
+		o1.getCatList().add(c1);
+		o1.getCatList().add(c2);
+		o1.getCatList().add(c3);
+		
+		
+		//First Method
+		System.out.println("First Method");
+		try{
+			boolean flag=o1.tagJobToCategory(11, j2);
+			System.out.println(flag);
+		}
+		catch(JobAlreadyExistException e)
+		{
+			System.out.println(" Job Exists");
+		}
+		
+		
+		//Second Method
+		System.out.println("Second Method");
+		try{
+			boolean flag1=o1.updateJobVacancy(6, 12);
+			System.out.println(flag1);
+		}
+		catch(JobDoesNotExistException e){
+			System.out.println(" Job does not Exists");
+		}
+		
+		
+		//Third Method
+		System.out.println("Third Method");
+		ArrayList<ContractJob>CJ1= o1.getContractJobsByLocation("Pune");
+		for (ContractJob jim:CJ1)
+		{
+			System.out.println(jim.getJobId());
+			System.out.println(jim.getJobDescription());
+		}
+		//Fourth Method
+		System.out.println("Fourth Method");
+		HashMap<Integer,Job> hm1= o1.getHighestSalaryJob();
+		for(Map.Entry<Integer,Job> var:hm1.entrySet() ){
+			System.out.println("Category id:"+ var.getKey());
+			System.out.println("Job:"+ var.getValue().getJobDescription());
+		}
+		
+		
+	}
+
+	}
